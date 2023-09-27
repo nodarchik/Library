@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('date_of_issue');
-            $table->enum('status', ['Free', 'Busy']);
+            $table->enum('status', ['თავისუფალია', 'დაკავებულია']);
             $table->timestamps();
         });
     }

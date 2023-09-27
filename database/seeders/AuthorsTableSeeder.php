@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Author;
 
 class AuthorsTableSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class AuthorsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Author::factory(50)->create();
     }
 }

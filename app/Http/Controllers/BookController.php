@@ -6,14 +6,17 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Services\BookService;
 use App\Http\Requests\BookRequest;
+use App\Services\AuthorService;
 
 class BookController extends Controller
 {
     protected BookService $bookService;
+    protected AuthorService $authorService;
 
-    public function __construct(BookService $bookService)
+    public function __construct(BookService $bookService, AuthorService $authorService)
     {
         $this->bookService = $bookService;
+        $this->authorService = $authorService;
     }
 
     /**
@@ -34,7 +37,8 @@ class BookController extends Controller
      */
     public function create(): View
     {
-        return view('books.create');
+        $authors = $this->authorService->getAllAuthors();
+        return view('books.create', compact('authors'));
     }
 
     /**
@@ -70,7 +74,8 @@ class BookController extends Controller
     public function edit(int $id): View
     {
         $book = $this->bookService->findBook($id);
-        return view('books.edit', compact('book'));
+        $authors = $this->authorService->getAllAuthors();
+        return view('books.edit', compact('book', 'authors'));
     }
 
     /**
