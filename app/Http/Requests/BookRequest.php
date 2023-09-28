@@ -12,7 +12,7 @@ class BookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class BookRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'date_of_issue' => 'required|date',
-            'status' => 'required|in:Free,Busy',
+            'status' => 'required|in:თავისუფალია,დაკავებულია',
             'author_ids' => 'required|array',
             'author_ids.*' => 'exists:authors,id'
         ];

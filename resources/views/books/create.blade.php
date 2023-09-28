@@ -25,11 +25,11 @@
             <label for="date_of_issue">Date of Issue</label>
             <input type="date" name="date_of_issue" id="date_of_issue" class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group mb-4">
             <label for="status">Status</label>
             <select name="status" id="status" class="form-control">
-                <option value="Free">Free</option>
-                <option value="Busy">Busy</option>
+                <option value="თავისუფალია">თავისუფალია</option>
+                <option value="დაკავებულია">დაკავებულია</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Create</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Services\BookService;
@@ -22,13 +23,23 @@ class BookController extends Controller
     /**
      * Display a listing of books.
      *
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $books = $this->bookService->getAllBooks();
+        $title = $request->get('title');
+        $author = $request->get('author');
+
+        if ($title || $author) {
+            $books = $this->bookService->searchBooks($title, $author)->paginate(10);
+        } else {
+            $books = $this->bookService->getAllBooksQueryBuilder()->paginate(10);
+        }
+
         return view('books.index', compact('books'));
     }
+
 
     /**
      * Show the form for creating a new book.
@@ -49,6 +60,7 @@ class BookController extends Controller
      */
     public function store(BookRequest $request): RedirectResponse
     {
+        \Log::info('Validated Request Data', $request->validated());
         $this->bookService->createBook($request->validated());
         return redirect()->route('books.index');
     }
